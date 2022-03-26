@@ -1,8 +1,17 @@
 package hello.hellospring.domain;
 
+import javax.persistence.*;
+
+// 이제 Member는 jpa가 관리함.
+@Entity
 public class Member {
-    private Long id;        // 시스템이 저장할때 사용하는 것.
-    private String name;    // 사용자가 사용하는 이름.
+
+    // Primary Key. db가 id 자동으로 만들어주는것 = identity
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "username")
+    private String name;
 
     public Long getId() {
         return id;

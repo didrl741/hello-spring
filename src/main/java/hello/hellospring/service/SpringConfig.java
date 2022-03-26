@@ -1,22 +1,24 @@
 package hello.hellospring.service;
 
 import hello.hellospring.repository.JdbcTemplateMemberRepository;
+import hello.hellospring.repository.JpaMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
 
-    private DataSource datasource;
+    private EntityManager em;
 
     @Autowired
-    public SpringConfig(DataSource dataSource) {
-        this.datasource = dataSource;
+    public SpringConfig(EntityManager em) {
+        this.em=em;
     }
 
     // 스프링 빈에 등록.
@@ -28,6 +30,6 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository() {
 
-        return new JdbcTemplateMemberRepository(datasource);
+        return new JpaMemberRepository(em);
     }
 }
